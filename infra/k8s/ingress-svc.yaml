@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-svc
+  namespace: ticketing
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+    # Set `host` to something that resolves to your cluster
+    - host: hello-world.kluster
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: hello-world-nginx-svc
+              servicePort: 3000

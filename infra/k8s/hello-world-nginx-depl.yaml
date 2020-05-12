@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-nginx-depl
+  namespace: ticketing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world-nginx
+  template:
+    metadata:
+      labels:
+        app: hello-world-nginx
+    spec:
+      containers:
+        - name: hello-world-nginx
+          image: twss/hello-world-nginx
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world-nginx-svc
+  namespace: ticketing
+spec:
+  selector:
+    app: hello-world-nginx
+  ports:
+    - name: hello-world-nginx
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
